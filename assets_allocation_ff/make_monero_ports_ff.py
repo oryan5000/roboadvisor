@@ -3,13 +3,15 @@ from datetime import date
 import os
 
 
-### 0. Pre-settings
+current_dir = os.path.dirname(os.path.abspath(__file__))
+APP_ROOT = os.path.abspath(os.path.join(current_dir, os.pardir))
+print(f"APP_ROOT: {APP_ROOT}")
 
 # where to put the results
-result_path = '/home/shafqat/Downloads/Roboadvisor_Project_Documentation/'
+result_path = APP_ROOT
 
 # where the 'etf_daily_return.csv' saved
-os.chdir(r'/home/shafqat/Downloads/Roboadvisor_Project_Documentation')
+#os.chdir(r'/home/shafqat/Downloads/Roboadvisor_Project_Documentation')
 
 # freq & window settings
 freq = 12 #monthly data
@@ -33,7 +35,7 @@ taxable_port_analysis = monero_utils_ff.make_port_analysis_df(taxable_port_rt)
 ### 2. export to csv files
 
 today = date.today().strftime('%Y-%m-%d')
-result_folder = result_path + today +"_ff"
+result_folder = result_path + "/" + today +"_ff"
 os.mkdir(result_folder)
 
 file_name = result_folder + '/asset_weights_retirement.csv'

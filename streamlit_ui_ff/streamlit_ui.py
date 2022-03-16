@@ -13,12 +13,14 @@ import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 import csv
+import os
 from PIL import Image
 import plotly
 import plotly.express as px
 import plotly.graph_objects as go
 
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 #-----------------------------------------------------------------------------------------
 # 2) VARIABLES: The following variables pertain to the file names, questions,
@@ -31,15 +33,15 @@ import plotly.graph_objects as go
 ## asset weights for taxable and retirement accounts, portfolio returns,
 ## portfolio advanced statistics, photo of table for Question 7,
 ## as well as name of the robo-advisor and title of page
-investment_universe = 'investment_universe.csv'
-all_risk_profiles = 'risk_profiles.csv'
-asset_weights_taxable = 'asset_weights_taxable.csv'
-asset_weights_retirement = 'asset_weights_retirement.csv'
-portfolio_returns_taxable = 'portfolio_returns_taxable.csv'
-portfolio_returns_retirement = 'portfolio_returns_retirement.csv'
-portfolio_advanced_statistics_taxable = 'portfolio_advanced_statistics_taxable.csv'
-portfolio_advanced_statistics_retirement= 'portfolio_advanced_statistics_retirement.csv'
-Q7_photo = 'Q7.png'
+investment_universe = current_dir + '/investment_universe.csv'
+all_risk_profiles = current_dir + '/risk_profiles.csv'
+asset_weights_taxable = current_dir + '/asset_weights_taxable.csv'
+asset_weights_retirement = current_dir + '/asset_weights_retirement.csv'
+portfolio_returns_taxable = current_dir + '/portfolio_returns_taxable.csv'
+portfolio_returns_retirement = current_dir + '/portfolio_returns_retirement.csv'
+portfolio_advanced_statistics_taxable = current_dir + '/portfolio_advanced_statistics_taxable.csv'
+portfolio_advanced_statistics_retirement = current_dir + '/portfolio_advanced_statistics_retirement.csv'
+Q7_photo = current_dir + '/Q7.png'
 roboadvisor = 'Monero'	# change the name of roboadvisor here if necessary
 page_title = f'{roboadvisor} Robo-Advisor by Portfolio Constructs, LLC' # title of page to be shown on browser tab
 

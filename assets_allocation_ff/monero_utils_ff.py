@@ -21,11 +21,14 @@ from scipy.cluster.hierarchy import dendrogram, linkage, cut_tree
 from scipy import optimize
 from scipy.stats import dirichlet
 import cvxpy
+import os
 
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 ### 1
 def load_asset_data(account):
-    file_name_etf = 'etf_daily_return.csv'
+    file_name_etf = current_dir + '/etf_daily_return.csv'
     df_tr = pd.read_csv(file_name_etf, index_col='Dates')
     df_tr.index = pd.to_datetime(df_tr.index)
     
@@ -631,11 +634,13 @@ def make_port_asset_wgt_dict(account, window):
             freq = 12 #monthly
             mu = ((1 + expected_return_rf_dict[a].mean()) ** freq) - 1
             s = risk_models.risk_matrix(asset_rf_dict[a], method="ledoit_wolf_single_factor", returns_data=True, frequency=freq)
-        
-            ef = EfficientFrontier(mu, s) #, solver="ECOS")
+
+            ef = EfficientFrontier(mu, s, solver="ECOS")
             ef.add_sector_constraints(asset_mapper_dict[a], lower_bnd, upper_bnd[i])
-        
-            raw_wgt = ef.efficient_risk(vol_tgt)
+            try:
+                raw_wgt = ef.efficient_risk(vol_tgt)
+            except Exception:
+                continue
             wgt_temp.append(ef.clean_weights())
             riskreturn_temp.append(ef.portfolio_performance(risk_free_rate = rf))
     
